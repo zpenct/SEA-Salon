@@ -6,19 +6,45 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install",
+    "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@ant-design/nextjs-registry": "^1.0.0",
+    "@auth/prisma-adapter": "^2.4.1",
+    "@prisma/client": "^5.16.1",
+    "@tanstack/react-query": "^5.49.2",
+    "@tanstack/react-query-devtools": "4",
+    "antd": "^5.18.3",
+    "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
+    "dayjs": "^1.11.11",
+    "next": "14.2.4",
+    "next-auth": "5.0.0-beta.19",
+    "nextjs-toploader": "^1.6.12",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.4"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.4"
+    "eslint-config-next": "14.2.4",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.2",
+    "prisma": "^5.16.1",
+    "typescript": "^5"
   }
 }

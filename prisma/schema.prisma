@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum RoleUser {
+  ADMIN
+  CUSTOMER
+}
+
+enum EService {
+  HAIRCUTS_STYLING
+  MANICURE_PEDICURE
+  FACIAL_TREATMENT
+}
+
+enum Status {
+  WAITING
+  CANCEL
+  IN_PROGRESS
+  DONE
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  full_name    String
+  phone_number String
+  password     String
+  role         RoleUser @default(CUSTOMER)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  reservated Reservation[]
+
+  @@map("users")
+}
+
+model Reservation {
+  id         Int      @id @default(autoincrement())
+  service    String
+  order_date DateTime @db.Date
+  start_time String
+  end_time   String
+  status     Status   @default(WAITING)
+
+  user_id       Int?
+  reservated_by User? @relation(fields: [user_id], references: [id])
+
+  branch_id     Int
+  reservated_in Branch @relation(fields: [branch_id], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@map("reservations")
+}
+
+model Review {
+  id     Int    @id @default(autoincrement())
+  points Int
+  notes  String
+  name   String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@map("reviews")
+}
+
+model Branch {
+  id         Int    @id @default(autoincrement())
+  name       String @unique
+  location   String
+  open_time  String
+  close_time String
+
+  reservated Reservation[]
+  services   Service[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@map("branches")
+}
+
+model Service {
+  id      Int    @id @default(autoincrement())
+  name    String
+  session Int
+
+  branch_id Int
+  served_in Branch @relation(fields: [branch_id], references: [id])
+
+  @@map("services")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+}
