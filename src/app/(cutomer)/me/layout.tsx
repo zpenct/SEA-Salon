@@ -20,13 +20,8 @@ const menuitems = [
     icon: <DashboardOutlined />,
   },
   {
-    key: "2",
-    label: <Link href="/dashboard/branches">Branches</Link>,
-    icon: <BranchesOutlined />,
-  },
-  {
     key: "3",
-    label: <Link href="/dashboard/profile">Profile</Link>,
+    label: <Link href="/me/profile">Profile</Link>,
     icon: <ProfileOutlined />,
   },
 ];

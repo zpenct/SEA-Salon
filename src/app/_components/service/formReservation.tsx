@@ -100,6 +100,7 @@ const OrderForm: React.FC<Props> = ({ listServices, listBranches }) => {
       {contextHolder}
       <Form onFinish={onFinish} form={form}>
         <Form.Item
+          initialValue={listServices[0].name}
           name="type"
           rules={[
             { required: true, message: "Please Select your order service!" },
@@ -117,6 +118,7 @@ const OrderForm: React.FC<Props> = ({ listServices, listBranches }) => {
           />
         </Form.Item>
         <Form.Item
+          initialValue={listBranches[0].name}
           name="branch"
           rules={[
             { required: true, message: "Please Select your order service!" },
