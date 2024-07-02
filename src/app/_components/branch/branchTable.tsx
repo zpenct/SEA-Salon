@@ -45,7 +45,7 @@ const columns: TableProps<DataType>["columns"] = [
     render: (_, record) => (
       <Space size="middle" direction="vertical">
         {record.services.map((service) => (
-          <Space>
+          <Space key={service.name}>
             <p style={{ fontWeight: "bold", margin: 0, padding: 0 }}>
               {service.name}
             </p>

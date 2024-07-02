@@ -68,7 +68,7 @@ export default function Contact() {
             color: "#6155A6",
           }}
         >
-          <h3>Let's talk</h3>
+          <h3>Lets talk</h3>
         </Flex>
       </div>
     </>
