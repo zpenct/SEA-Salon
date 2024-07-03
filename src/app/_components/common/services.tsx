@@ -1,6 +1,6 @@
 import React from "react";
 import ServiceItem from "../service/item";
-import { Space, Flex } from "antd";
+import { Flex } from "antd";
 
 const items = [
   {
@@ -29,7 +29,7 @@ const items = [
   },
 ];
 
-const Services = () => {
+const Services: React.FC = () => {
   return (
     <section
       style={{

@@ -2,7 +2,7 @@ import React from "react";
 import FormFeedback from "../../_components/feedback/formFeedback";
 import FormWrapper from "@/app/_components/common/formWrapper";
 
-const page = () => {
+const Page: React.FC = () => {
   return (
     <>
       <FormWrapper
@@ -15,4 +15,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

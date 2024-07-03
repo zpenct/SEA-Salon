@@ -10,6 +10,7 @@ import {
 import { usePathname } from "next/navigation";
 
 import Link from "next/link";
+import MyFooter from "@/app/_components/common/footer";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -65,9 +66,7 @@ const LayoutDashboardAdmin: React.FC<Props> = ({ children }) => {
           >
             <main style={{ padding: 24 }}>{children}</main>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
-            ZZ ©{new Date().getFullYear()} Created by Zpenct
-          </Footer>
+          <MyFooter />
         </Layout>
       </Layout>
     </>

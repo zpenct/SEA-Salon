@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { Button, Flex, Space } from "antd";
+import { Flex, Space } from "antd";
 import { PhoneFilled } from "@ant-design/icons";
 
 const contentStyle: React.CSSProperties = {
@@ -15,7 +14,7 @@ const contentStyle: React.CSSProperties = {
 export default function Contact() {
   return (
     <>
-      <div style={contentStyle}>
+      <div style={contentStyle} id="contact-section">
         <Space direction="vertical">
           <h3>Contact Us</h3>
 

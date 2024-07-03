@@ -2,37 +2,9 @@ import React from "react";
 import { Space, Table, Tag, Typography } from "antd";
 import type { TableProps } from "antd";
 import { formatDate, showNotificationDate } from "@/app/utils";
+import { TReservation } from "../../../../types";
 
-type TReservatedBy = {
-  full_name: string;
-  phone_number: string;
-};
-
-type TReservatedIn = {
-  name: string;
-  location: string;
-};
-
-interface DataType {
-  key: string;
-  id: number;
-  service: string;
-  order_date: string;
-  start_time: string;
-  end_time: string;
-  status: string;
-  address: string;
-  created_at: Date;
-  reservated_by: TReservatedBy;
-  reservated_in: TReservatedIn;
-}
-
-const columns: TableProps<DataType>["columns"] = [
-  {
-    title: "Name",
-    key: "name",
-    render: (_, record) => <p>{record.reservated_by.full_name}</p>,
-  },
+const columns: TableProps<TReservation>["columns"] = [
   {
     title: "Order At",
     key: "name",
@@ -83,7 +55,7 @@ interface Props {
   data?: any;
 }
 
-const ReservationsTable: React.FC<Props> = ({ loading, data }) => {
+const MyReservationsTable: React.FC<Props> = ({ loading, data }) => {
   return (
     <>
       <Table
@@ -96,4 +68,4 @@ const ReservationsTable: React.FC<Props> = ({ loading, data }) => {
   );
 };
 
-export default ReservationsTable;
+export default MyReservationsTable;

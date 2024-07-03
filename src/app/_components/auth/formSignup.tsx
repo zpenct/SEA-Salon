@@ -1,44 +1,48 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { LockOutlined, UserOutlined, PhoneOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import Link from "next/link";
-import axios from "axios";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signUpApi } from "@/app/_services";
+import { useMutation } from "@tanstack/react-query";
 
-const SignInForm: React.FC = () => {
+const SignUpForm: React.FC = () => {
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onFinish = async (values: any) => {
-    console.log("Received values of form: ", values);
-
-    try {
-      const res = await axios.post("/api/auth/signup", {
-        email: values.email,
-        password: values.password,
-        full_name: values.full_name,
-        phone_number: values.phone_number,
-        ...values,
+  const signUpMutation = useMutation({
+    mutationFn: signUpApi,
+    onSuccess: () => {
+      messageApi.open({
+        type: "success",
+        content: "Successfully created account!",
       });
 
-      if (res.status === 200) {
-        messageApi.open({
-          type: "success",
-          content: "Success",
-        });
+      router.push("/signin");
+    },
+    onError: () => {
+      messageApi.open({
+        type: "error",
+        content: "Something went wrong. Please try again.",
+      });
+    },
+  });
 
-        router.push("/signin");
-      }
+  const onFinish = async (values: any) => {
+    setIsLoading(true);
+    try {
+      signUpMutation.mutate(values);
     } catch (error: any) {
-      console.log(error.message);
       messageApi.open({
         duration: 6,
         type: "error",
         content: error.message,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -105,7 +109,13 @@ const SignInForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" size="large" block>
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            block
+            loading={isLoading}
+          >
             Sign Up
           </Button>
           Or <Link href="/signin">Sign In!</Link>
@@ -115,4 +125,4 @@ const SignInForm: React.FC = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

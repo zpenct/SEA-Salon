@@ -13,6 +13,7 @@ const Page = async ({
   const selectedBranch = searchParams?.branch || "SEA Salon Indah";
   return (
     <>
+      {/* TODO: add fallback */}
       <Suspense fallback={<div>Loading fallback...</div>}>
         <ClientServices selectedBranch={selectedBranch as string} />
       </Suspense>

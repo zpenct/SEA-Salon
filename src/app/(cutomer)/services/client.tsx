@@ -3,15 +3,14 @@
 import React from "react";
 import { Card, Layout, Flex, Typography, List, Tag } from "antd";
 import OrderForm from "../../_components/service/formReservation";
-import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { CheckOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { getAllBranches, getSpecificBranch } from "@/app/_services";
-import { useIsMobileScreen } from "@/app/utils";
+import { useIsMobileScreen, generateDisabledHours } from "@/app/utils";
 import Meta from "antd/es/card/Meta";
+import MyFooter from "@/app/_components/common/footer";
 
-const { Footer } = Layout;
 const { Title, Text } = Typography;
 
 const bgStyle: React.CSSProperties = {
@@ -30,7 +29,6 @@ interface Props {
 }
 const ClientServices: React.FC<Props> = ({ selectedBranch }) => {
   const isMobile = useIsMobileScreen();
-  const params = useSearchParams();
 
   const {
     data: branchData,
@@ -57,12 +55,18 @@ const ClientServices: React.FC<Props> = ({ selectedBranch }) => {
   return (
     <Layout style={{ minHeight: "100vh", paddingTop: 64, padding: 8 }}>
       <Flex justify="center" wrap={isMobile} gap={24}>
-        <div style={{ background: "white", borderRadius: 8 }}>
+        <div
+          style={{
+            background: "white",
+            borderRadius: 8,
+            overflow: "hidden",
+          }}
+        >
           <div style={bgStyle}>Welcome To SEA Salon</div>
           <div
             style={{
               marginTop: -32,
-              marginLeft: 32,
+              marginLeft: isMobile ? 8 : 32,
             }}
           >
             <Image
@@ -82,8 +86,8 @@ const ClientServices: React.FC<Props> = ({ selectedBranch }) => {
             </div>
           </div>
           {/* Servies */}
-          <div style={{ padding: 32 }}>
-            <Title level={4}>What We Offer</Title>
+          <div style={{ padding: isMobile ? 8 : 32, marginTop: 16 }}>
+            <Title level={5}>What We Offer</Title>
 
             <Text type="secondary" style={{ width: 300 }}>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
@@ -95,12 +99,9 @@ const ClientServices: React.FC<Props> = ({ selectedBranch }) => {
               dataSource={branchData.data.services}
               renderItem={(item: any) => (
                 <List.Item>
-                  <Card
-                    style={{
-                      padding: 0,
-                    }}
-                  >
+                  <Card>
                     <Meta
+                      style={{ margin: 0, padding: 0 }}
                       avatar={
                         <CheckOutlined
                           style={{
@@ -113,9 +114,17 @@ const ClientServices: React.FC<Props> = ({ selectedBranch }) => {
                         />
                       }
                       title={
-                        <Flex justify="space-between">
+                        <Flex
+                          justify="space-between"
+                          vertical={isMobile}
+                          gap={isMobile ? 8 : 0}
+                        >
                           <Typography.Text strong>{item.name}</Typography.Text>
-                          <Tag color="blue" icon={<ClockCircleOutlined />}>
+                          <Tag
+                            color="blue"
+                            icon={<ClockCircleOutlined />}
+                            style={{ maxWidth: 150, textAlign: "center" }}
+                          >
                             {item.session} minutes / session
                           </Tag>
                         </Flex>
@@ -132,13 +141,14 @@ const ClientServices: React.FC<Props> = ({ selectedBranch }) => {
             <OrderForm
               listServices={branchData.data.services}
               listBranches={listBranchData.items}
+              openTime={branchData.data.open_time}
+              closeTime={branchData.data.close_time}
+              selectedBranch={selectedBranch}
             />
           </Card>
         </div>
       </Flex>
-      <Footer style={{ textAlign: "center" }}>
-        SEA Salon ©{new Date().getFullYear()} Created by Zpenct
-      </Footer>
+      <MyFooter />
     </Layout>
   );
 };

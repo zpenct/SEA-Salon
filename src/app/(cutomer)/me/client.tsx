@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
-import { Space, Typography } from "antd";
+import { Button, Flex, Space, Typography } from "antd";
 import { getReservationsByEmail } from "@/app/_services";
 import { useQuery } from "@tanstack/react-query";
-import MyReservationsTable from "@/app/_components/customer/myReservationsTable";
+import MyReservationsTable from "@/app/_components/reservation/myReservationsTable";
+import Link from "next/link";
+import { PlusOutlined } from "@ant-design/icons";
 
 interface Props {
   children?: React.ReactNode;
@@ -32,9 +34,14 @@ const ClientDashboard: React.FC<Props> = ({ userLoggedIn }) => {
         }}
       >
         <Space direction="vertical" style={{ width: "100%" }}>
-          <Typography.Title level={4} style={{ marginTop: 24 }}>
-            My Latest Reservations
-          </Typography.Title>
+          <Flex align="middle" justify="space-between">
+            <Typography.Title level={4} style={{ marginTop: 24 }}>
+              My Latest Reservations
+            </Typography.Title>
+            <Button icon={<PlusOutlined />} type="primary">
+              <Link href="/services">Create Reservations</Link>
+            </Button>
+          </Flex>
           <MyReservationsTable
             loading={isLoading}
             data={myReservetions?.items}

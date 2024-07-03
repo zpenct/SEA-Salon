@@ -10,13 +10,14 @@ import {
 import { usePathname } from "next/navigation";
 
 import Link from "next/link";
+import MyFooter from "@/app/_components/common/footer";
 
 const { Content, Footer, Sider } = Layout;
 
 const menuitems = [
   {
     key: "1",
-    label: "Main",
+    label: <Link href="/me">Main</Link>,
     icon: <DashboardOutlined />,
   },
   {
@@ -29,7 +30,7 @@ const menuitems = [
 interface Props {
   children: React.ReactNode;
 }
-const LayoutDashboardAdmin: React.FC<Props> = ({ children }) => {
+const LayoutDashboardCustomer: React.FC<Props> = ({ children }) => {
   const pathname = usePathname();
   if (pathname === "/dashboard/branches/new") return <>{children}</>;
   return (
@@ -60,13 +61,11 @@ const LayoutDashboardAdmin: React.FC<Props> = ({ children }) => {
           >
             <main style={{ padding: 24 }}>{children}</main>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
-            Ant Design ©{new Date().getFullYear()} Created by Ant UED
-          </Footer>
+          <MyFooter />
         </Layout>
       </Layout>
     </>
   );
 };
 
-export default LayoutDashboardAdmin;
+export default LayoutDashboardCustomer;
