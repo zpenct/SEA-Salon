@@ -5,7 +5,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  session: { strategy: "jwt" },
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
+  },
   adapter: PrismaAdapter(prisma),
   pages: {
     signIn: "/signin",
@@ -34,13 +38,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
 
         if (!user) {
-          console.log("Ternyata gak ada user");
-          return null;
+          throw new Error("User not found");
         }
 
         if (!(await bcrypt.compare(String(password), user.password))) {
-          console.log("Password salah");
-          return null;
+          throw new Error("Wrong password or Email");
         }
 
         const userData: any = {
