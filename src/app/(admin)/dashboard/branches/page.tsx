@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PlusOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
-const Page: React.FC = ({}) => {
+const Page: React.FC = () => {
   const {
     data: branchData,
     isLoading,

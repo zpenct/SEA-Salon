@@ -1,9 +1,8 @@
 import React from "react";
 import AuthWrapper from "../../_components/common/formWrapper";
 import SignInForm from "../../_components/auth/formSignin";
-import { Flex } from "antd";
 
-const App: React.FC = () => {
+const Page: React.FC = () => {
   return (
     <>
       <AuthWrapper
@@ -16,4 +15,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Page;

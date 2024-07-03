@@ -1,49 +1,10 @@
 import React from "react";
-import {
-  Avatar,
-  Button,
-  Card,
-  Descriptions,
-  Flex,
-  Skeleton,
-  Space,
-  Typography,
-} from "antd";
-import type { DescriptionsProps } from "antd";
-import { useSession } from "next-auth/react";
+import { Avatar, Card, Flex, Skeleton, Space } from "antd";
 import { auth } from "../../../../../auth";
 import Meta from "antd/es/card/Meta";
 
 const App: React.FC = async () => {
   const data = await auth();
-  const items: DescriptionsProps["items"] = [
-    {
-      key: "1",
-      label: "Full Name",
-      children: "Zhou Maomao",
-    },
-    {
-      key: "2",
-      label: "Telephone",
-      children: "1810000000",
-    },
-    {
-      key: "3",
-      label: "Live",
-      children: "Hangzhou, Zhejiang",
-    },
-    {
-      key: "4",
-      label: "Remark",
-      children: "empty",
-    },
-    {
-      key: "5",
-      label: "Address",
-      children:
-        "No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China",
-    },
-  ];
   return (
     <Flex justify="center" style={{ width: "100%" }} align="middle">
       <Space direction="vertical" style={{ width: "100%" }} size={16}>

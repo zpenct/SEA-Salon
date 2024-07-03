@@ -2,7 +2,7 @@ import React from "react";
 import AuthWrapper from "../../_components/common/formWrapper";
 import SignUpForm from "../../_components/auth/formSignup";
 
-const App: React.FC = () => {
+const Page: React.FC = () => {
   return (
     <>
       <AuthWrapper
@@ -15,4 +15,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Page;

@@ -1,12 +1,16 @@
 import React from "react";
-import ClientNewBranch from "./client";
+import { FormBranch } from "@/app/_components/branch/formBranch";
+import FormWrapper from "@/app/_components/common/formWrapper";
 
 const Page = () => {
-  return (
-    <>
-      <ClientNewBranch />
-    </>
-  );
+  <>
+    <FormWrapper
+      title="New Branch"
+      description="Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+    >
+      <FormBranch />
+    </FormWrapper>
+  </>;
 };
 
 export default Page;
