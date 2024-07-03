@@ -9,10 +9,8 @@ import {
   MessageOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Menu } from "antd";
+import { Menu, Tag } from "antd";
 import Link from "next/link";
-import useScreenSize from "@/app/_hooks/useScreen";
-import { mobileScreen } from "@/app/constant";
 import { useIsMobileScreen } from "@/app/utils";
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -25,18 +23,30 @@ const items: MenuItem[] = [
     children: [
       {
         type: "group",
-        label: "Item 1",
+        label: <Tag color="gold">Popular!</Tag>,
         children: [
-          { label: "Option 1", key: "setting:1" },
-          { label: "Option 2", key: "setting:2" },
+          {
+            label: <Link href="/services">Haircut and Styling</Link>,
+            key: "setting:1",
+          },
+          {
+            label: <Link href="/services">Nail Treatments</Link>,
+            key: "setting:2",
+          },
+          {
+            label: (
+              <Link href="/services">Facials and skin care treatments</Link>
+            ),
+            key: "setting:2",
+          },
         ],
       },
       {
         type: "group",
-        label: "Item 2",
+        label: <Tag color="green">Soon!</Tag>,
         children: [
-          { label: "Option 3", key: "setting:3" },
-          { label: "Option 4", key: "setting:4" },
+          { label: "Complementary care", key: "setting:3" },
+          { label: "Tanning", key: "setting:4" },
         ],
       },
     ],
@@ -47,7 +57,7 @@ const items: MenuItem[] = [
     icon: <MessageOutlined />,
   },
   {
-    label: "Contact Us",
+    label: <Link href="/#contact-section">Contact US</Link>,
     key: "Contact",
     icon: <PhoneOutlined />,
   },
