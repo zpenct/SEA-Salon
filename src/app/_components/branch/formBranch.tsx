@@ -9,7 +9,6 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import dayjs from "dayjs";
-import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { createNewBranch } from "@/app/_services";
 import { QueryClient } from "@tanstack/react-query";
@@ -48,13 +47,14 @@ export function FormBranch() {
   });
 
   const handleSubmit = async (values: any) => {
-    // convert date and time
-    console.log("Received values of form: ", values);
     setIsLoading(true);
     try {
       createBranchMutation.mutate(values);
     } catch (error) {
-      console.log(error);
+      messageApi.open({
+        type: "error",
+        content: "Upss, you are not authorized",
+      });
     } finally {
       setIsLoading(false);
     }
