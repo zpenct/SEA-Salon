@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextTopLoader />
+        <NextTopLoader color="#7678ED" />
         <ReactQueryProvider>
           <AntdRegistry>
             <ConfigProvider theme={{ token: { colorPrimary: "#7678ED" } }}>
