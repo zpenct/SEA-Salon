@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   const password = await hash("admin123", 12);
-  const user = await prisma.user.upsert({
+  const admin = await prisma.user.upsert({
     where: { email: "admin@admin.com" },
     update: {},
     create: {
@@ -16,7 +16,17 @@ async function main() {
       password,
     },
   });
-  console.log({ user });
+
+  const mainBranch = await prisma.branch.upsert({
+    where: { name: "SEA Salon Indah" },
+    update: {},
+    create: {
+      location: "Jln. Samaria No.12,  Kota Palu, Sulawesi tengah",
+      open_time: "09:00",
+      close_time: "21:00",
+      name: "SEA Salon Indah",
+    },
+  });
 }
 main()
   .then(() => prisma.$disconnect())
