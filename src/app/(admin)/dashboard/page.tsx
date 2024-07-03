@@ -14,7 +14,7 @@ import {
   message,
   Flex,
 } from "antd";
-import CustomerTable from "@/app/_components/customer/reservationsTable";
+import CustomerTable from "@/app/_components/reservation/reservationsTable";
 import { redirect } from "next/navigation";
 import {
   getTotalReviews,
@@ -39,7 +39,7 @@ const ClientDashboard: React.FC = ({}) => {
           queryFn: getAllReviews,
         },
         {
-          queryKey: ["customers"],
+          queryKey: ["reservations"],
           queryFn: getAllCustomer,
         },
         {
