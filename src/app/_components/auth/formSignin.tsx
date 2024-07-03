@@ -23,7 +23,7 @@ const SignInForm: React.FC = () => {
         callbackUrl = "/me";
       }
 
-      const res = await signIn("credentials", {
+      await signIn("credentials", {
         email: values.email,
         password: values.password,
         callbackUrl: callbackUrl,
@@ -31,13 +31,13 @@ const SignInForm: React.FC = () => {
 
       messageApi.open({
         type: "success",
-        content: "Welcomeback!",
+        content: "Welcome back!",
       });
     } catch (error) {
       console.log(error);
       messageApi.open({
         type: "error",
-        content: "Error cuy",
+        content: "Password or email is wrong",
       });
     } finally {
       setIsLoading(false);

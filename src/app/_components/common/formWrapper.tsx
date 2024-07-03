@@ -1,10 +1,14 @@
 import React from "react";
-import { Card, Col, Flex, Row, Space, Typography } from "antd";
+import { Col, Row, Space } from "antd";
 import Image from "next/image";
 
-const { Title, Text } = Typography;
+interface Props {
+  title?: string;
+  description?: string;
+  children: React.ReactNode;
+}
 
-const FormWrapper = ({
+const FormWrapper: React.FC<Props> = ({
   title,
   description,
   children,
