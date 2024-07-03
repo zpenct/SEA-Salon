@@ -24,3 +24,23 @@ export const useIsMobileScreen = (): boolean => {
   const { md } = Grid.useBreakpoint();
   return !md;
 };
+
+export const generateDisabledHours = (openTime: string, closeTime: string) => {
+  const disabledHours = [];
+
+  // Konversi jam buka dan tutup ke format angka (integer)
+  const openHour = parseInt(openTime.split(":")[0]);
+  const closeHour = parseInt(closeTime.split(":")[0]);
+
+  // Tambahkan jam-jam sebelum jam buka ke `disabledHours`
+  for (let i = 0; i < openHour; i++) {
+    disabledHours.push(i);
+  }
+
+  // Tambahkan jam-jam setelah jam tutup ke `disabledHours`
+  for (let i = closeHour + 1; i < 24; i++) {
+    disabledHours.push(i);
+  }
+
+  return disabledHours;
+};

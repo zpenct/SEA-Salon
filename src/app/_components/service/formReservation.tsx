@@ -16,53 +16,73 @@ import {
 import type { DatePickerProps, GetProps } from "antd";
 import dayjs from "dayjs";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import axios from "axios";
 import { createNewReservation } from "@/app/_services";
 import { useSession } from "next-auth/react";
+import { useMutation, QueryClient } from "@tanstack/react-query";
+import { generateDisabledHours } from "@/app/utils";
 
 interface Props {
   //TODO: Make Type
   listServices: any[];
   listBranches: any[];
+  openTime: string;
+  closeTime: string;
+  selectedBranch?: string;
 }
 
-const OrderForm: React.FC<Props> = ({ listServices, listBranches }) => {
-  type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
+const queryClient = new QueryClient();
 
-  const { data, status } = useSession();
+const OrderForm: React.FC<Props> = ({
+  listServices,
+  listBranches,
+  openTime = "09.00",
+  closeTime = "21.00",
+  selectedBranch,
+}) => {
+  type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const { data } = useSession();
   const [form] = Form.useForm();
 
   const params = new URLSearchParams(searchParams.toString());
 
+  const disabledHours = generateDisabledHours(openTime, closeTime);
+
+  const createOrderMutation = useMutation({
+    mutationFn: createNewReservation,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["reservations", data?.user?.email],
+      });
+
+      messageApi.open({
+        type: "success",
+        content: "Create branch successfully",
+      });
+
+      router.push("/me");
+    },
+    onError: () => {
+      messageApi.open({
+        type: "error",
+        content: "Failed to create reservation. Please try again.",
+      });
+    },
+  });
+
   const onFinish = async (values: any) => {
-    console.log("Received values of form: ", {
-      ...values,
-      full_name: data?.user.full_name,
-      phone_number: data?.user.phone_number,
-    });
     setIsLoading(true);
     try {
-      const res = await createNewReservation(values);
-      if (res.status === "success") {
-        messageApi.open({
-          type: "success",
-          content: "Your reservation has been created successfully",
-        });
-
-        router.push("/dashboard");
-      }
+      createOrderMutation.mutate(values);
     } catch (error: any) {
-      console.log(error.message);
       messageApi.open({
-        duration: 6,
         type: "error",
-        content: error.message,
+        content: "Upss, you are not authorized",
       });
     } finally {
       setIsLoading(false);
@@ -80,18 +100,17 @@ const OrderForm: React.FC<Props> = ({ listServices, listBranches }) => {
   };
 
   const onOk = (value: DatePickerProps["value"]) => {
-    console.log("onOk: ", value);
     form.setFieldsValue({ order_time: dayjs(value).format() });
   };
 
   const disabledRangeTime: RangePickerProps["disabledTime"] = (_x, type) => {
     if (type === "start") {
       return {
-        disabledHours: () => [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23, 24],
+        disabledHours: () => disabledHours,
       };
     }
     return {
-      disabledHours: () => [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23, 24],
+      disabledHours: () => disabledHours,
     };
   };
 
@@ -100,25 +119,7 @@ const OrderForm: React.FC<Props> = ({ listServices, listBranches }) => {
       {contextHolder}
       <Form onFinish={onFinish} form={form}>
         <Form.Item
-          initialValue={listServices[0].name}
-          name="type"
-          rules={[
-            { required: true, message: "Please Select your order service!" },
-          ]}
-        >
-          <Typography.Title level={5}>Type of service</Typography.Title>
-          <Select
-            defaultValue={listServices[0].name}
-            style={{ width: 200 }}
-            onChange={handleTypeChange}
-            options={listServices.map((item: any) => ({
-              value: item.name,
-              label: item.name,
-            }))}
-          />
-        </Form.Item>
-        <Form.Item
-          initialValue={listBranches[0].name}
+          initialValue={selectedBranch}
           name="branch"
           rules={[
             { required: true, message: "Please Select your order service!" },
@@ -126,7 +127,7 @@ const OrderForm: React.FC<Props> = ({ listServices, listBranches }) => {
         >
           <Typography.Title level={5}>Order Branch</Typography.Title>
           <Select
-            defaultValue={listBranches[0].name}
+            placeholder="Select branch"
             style={{ width: 200 }}
             onChange={handleBranchChange}
             options={listBranches.map((item: any) => ({
@@ -135,6 +136,24 @@ const OrderForm: React.FC<Props> = ({ listServices, listBranches }) => {
             }))}
           />
         </Form.Item>
+        <Form.Item
+          name="type"
+          rules={[
+            { required: true, message: "Please Select your order service!" },
+          ]}
+        >
+          <Typography.Title level={5}>Type of service</Typography.Title>
+          <Select
+            placeholder="Select service"
+            style={{ width: 200 }}
+            onChange={handleTypeChange}
+            options={listServices.map((item: any) => ({
+              value: item.name,
+              label: item.name,
+            }))}
+          />
+        </Form.Item>
+
         <Form.Item
           name="order_date"
           rules={[
