@@ -4,14 +4,12 @@ import SignInForm from "../../_components/auth/formSignin";
 
 const Page: React.FC = () => {
   return (
-    <>
-      <AuthWrapper
-        title="Sign In First!"
-        description="Lorem ipsum, dolor sit amet consectetur adipisicing elit."
-      >
-        <SignInForm />
-      </AuthWrapper>
-    </>
+    <AuthWrapper
+      title="Sign In First!"
+      description="Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+    >
+      <SignInForm />
+    </AuthWrapper>
   );
 };
 

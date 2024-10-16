@@ -7,9 +7,9 @@ import { useQuery } from "@tanstack/react-query";
 import MyReservationsTable from "@/app/_components/reservation/myReservationsTable";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
+import { reservetionsKey } from "@/app/_constant/queryKey";
 
 interface Props {
-  children?: React.ReactNode;
   userLoggedIn: any;
 }
 
@@ -21,34 +21,29 @@ const ClientDashboard: React.FC<Props> = ({ userLoggedIn }) => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["reservations", userLoggedIn?.email],
+    queryKey: [reservetionsKey.LIST, email],
     queryFn: () => getReservationsByEmail(email),
   });
 
   return (
-    <>
-      <div
-        style={{
-          padding: 24,
-          minHeight: 360,
-        }}
-      >
-        <Space direction="vertical" style={{ width: "100%" }}>
-          <Flex align="middle" justify="space-between">
-            <Typography.Title level={4} style={{ marginTop: 24 }}>
-              My Latest Reservations
-            </Typography.Title>
-            <Button icon={<PlusOutlined />} type="primary">
-              <Link href="/services">Create Reservations</Link>
-            </Button>
-          </Flex>
-          <MyReservationsTable
-            loading={isLoading}
-            data={myReservetions?.items}
-          />
-        </Space>
-      </div>
-    </>
+    <div
+      style={{
+        padding: 24,
+        minHeight: 360,
+      }}
+    >
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <Flex align="middle" justify="space-between">
+          <Typography.Title level={4} style={{ marginTop: 24 }}>
+            My Latest Reservations
+          </Typography.Title>
+          <Button icon={<PlusOutlined />} type="primary">
+            <Link href="/services">Create Reservations</Link>
+          </Button>
+        </Flex>
+        <MyReservationsTable loading={isLoading} data={myReservetions?.items} />
+      </Space>
+    </div>
   );
 };
 

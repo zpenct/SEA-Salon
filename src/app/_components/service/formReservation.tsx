@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { PhoneFilled, UserOutlined } from "@ant-design/icons";
 import {
   Button,
@@ -20,6 +20,8 @@ import { createNewReservation } from "@/app/_services";
 import { useSession } from "next-auth/react";
 import { useMutation, QueryClient } from "@tanstack/react-query";
 import { generateDisabledHours } from "@/app/utils";
+import { ROUTE } from "@/app/_constant/route";
+import { reservetionsKey } from "@/app/_constant/queryKey";
 
 interface Props {
   //TODO: Make Type
@@ -51,13 +53,26 @@ const OrderForm: React.FC<Props> = ({
 
   const params = new URLSearchParams(searchParams.toString());
 
+  const branchParam = searchParams.get("branch");
+
+  // Set form value based on query params when component mounts or query param changes
+  useEffect(() => {
+    if (branchParam) {
+      form.setFieldsValue({ branch: branchParam });
+    }
+  }, [branchParam, form]);
+
   const disabledHours = generateDisabledHours(openTime, closeTime);
 
   const createOrderMutation = useMutation({
     mutationFn: createNewReservation,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["reservations", data?.user?.email],
+        queryKey: [reservetionsKey.LIST, data?.user?.email],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [reservetionsKey.LIST],
       });
 
       messageApi.open({
@@ -65,7 +80,7 @@ const OrderForm: React.FC<Props> = ({
         content: "Create branch successfully",
       });
 
-      router.push("/me");
+      router.push(ROUTE.MY_DASHBOARD);
     },
     onError: () => {
       messageApi.open({
@@ -119,7 +134,6 @@ const OrderForm: React.FC<Props> = ({
       {contextHolder}
       <Form onFinish={onFinish} form={form}>
         <Form.Item
-          initialValue={selectedBranch}
           name="branch"
           rules={[
             { required: true, message: "Please Select your order service!" },
@@ -127,6 +141,7 @@ const OrderForm: React.FC<Props> = ({
         >
           <Typography.Title level={5}>Order Branch</Typography.Title>
           <Select
+            value={params.get("branch")}
             placeholder="Select branch"
             style={{ width: 200 }}
             onChange={handleBranchChange}

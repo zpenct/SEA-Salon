@@ -1,5 +1,5 @@
 import React from "react";
-import { Space, Table, Tag, Typography } from "antd";
+import { Space, Table, Typography } from "antd";
 import type { TableProps } from "antd";
 import { formatDate, showNotificationDate } from "@/app/utils";
 import { TReservation } from "../../../../types";
@@ -50,21 +50,17 @@ const columns: TableProps<TReservation>["columns"] = [
 
 interface Props {
   loading?: boolean;
-  onChange?: () => void;
-  onSearch?: () => void;
   data?: any;
 }
 
 const MyReservationsTable: React.FC<Props> = ({ loading, data }) => {
   return (
-    <>
-      <Table
-        columns={columns}
-        dataSource={data}
-        loading={loading}
-        rowKey={(record) => record.id}
-      />
-    </>
+    <Table
+      columns={columns}
+      dataSource={data}
+      loading={loading}
+      rowKey={(record) => record.id}
+    />
   );
 };
 

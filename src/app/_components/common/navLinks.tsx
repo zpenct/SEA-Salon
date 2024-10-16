@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import {
-  AppstoreOutlined,
   PhoneOutlined,
   MenuOutlined,
   SettingOutlined,
@@ -12,6 +11,7 @@ import type { MenuProps } from "antd";
 import { Menu, Tag } from "antd";
 import Link from "next/link";
 import { useIsMobileScreen } from "@/app/utils";
+import { ROUTE } from "@/app/_constant/route";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -26,16 +26,18 @@ const items: MenuItem[] = [
         label: <Tag color="gold">Popular!</Tag>,
         children: [
           {
-            label: <Link href="/services">Haircut and Styling</Link>,
+            label: <Link href={ROUTE.SERVICES}>Haircut and Styling</Link>,
             key: "setting:1",
           },
           {
-            label: <Link href="/services">Nail Treatments</Link>,
+            label: <Link href={ROUTE.SERVICES}>Nail Treatments</Link>,
             key: "setting:2",
           },
           {
             label: (
-              <Link href="/services">Facials and skin care treatments</Link>
+              <Link href={ROUTE.SERVICES}>
+                Facials and skin care treatments
+              </Link>
             ),
             key: "setting:2",
           },
@@ -52,7 +54,7 @@ const items: MenuItem[] = [
     ],
   },
   {
-    label: <Link href="/feedback">Feedback</Link>,
+    label: <Link href={ROUTE.FEEDBACK}>Feedback</Link>,
     key: "Feedback",
     icon: <MessageOutlined />,
   },
@@ -68,7 +70,6 @@ const NavLinks: React.FC = () => {
   const isMobile = useIsMobileScreen();
 
   const onClick: MenuProps["onClick"] = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
   };
 

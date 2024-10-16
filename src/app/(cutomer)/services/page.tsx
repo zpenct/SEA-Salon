@@ -1,13 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ClientServices from "./client";
 
-import { Suspense } from "react";
-
 const Page = async ({
-  params,
   searchParams,
 }: {
-  params: { id: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) => {
   const selectedBranch = searchParams?.branch || "SEA Salon Indah";

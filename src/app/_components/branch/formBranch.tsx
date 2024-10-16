@@ -1,6 +1,6 @@
 "use client";
 
-import { Form, Input, Button, message, Radio, Space, TimePicker } from "antd";
+import { Form, Input, Button, message, Space, TimePicker } from "antd";
 import {
   MinusCircleOutlined,
   NumberOutlined,
@@ -9,9 +9,10 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import dayjs from "dayjs";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, QueryClient } from "@tanstack/react-query";
 import { createNewBranch } from "@/app/_services";
-import { QueryClient } from "@tanstack/react-query";
+import { ROUTE } from "@/app/_constant/route";
+import { branchesKey } from "@/app/_constant/queryKey";
 
 export function FormBranch() {
   const queryClient = new QueryClient();
@@ -24,11 +25,13 @@ export function FormBranch() {
   const createBranchMutation = useMutation({
     mutationFn: createNewBranch,
     onSuccess: (newBranch) => {
-      queryClient.setQueryData(["branches", "detail"], newBranch.id);
+      queryClient.setQueryData(
+        [branchesKey.LIST, branchesKey.DETAIL],
+        newBranch.id,
+      );
 
-      // ✅ just invalidate all the lists
       queryClient.invalidateQueries({
-        queryKey: ["branches", "branches-total"],
+        queryKey: [branchesKey.LIST, branchesKey.TOTAL],
       });
 
       messageApi.open({
@@ -36,7 +39,7 @@ export function FormBranch() {
         content: "Create branch successfully",
       });
 
-      router.push("/dashboard/branches");
+      router.push(ROUTE.BRANCHES_ADMIN);
     },
     onError: () => {
       messageApi.open({
@@ -173,11 +176,11 @@ export function FormBranch() {
                     name={[name, "session_time"]}
                     rules={[
                       { required: true, message: "Misssing session time" },
-                      //   {
-                      //     type: "number",
-                      //     min: 60,
-                      //     message: "Must be at least 60 minutes",
-                      //   },
+                      {
+                        type: "number",
+                        min: 60,
+                        message: "Must be at least 60 minutes",
+                      },
                     ]}
                   >
                     <Input

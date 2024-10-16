@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signUpApi } from "@/app/_services";
 import { useMutation } from "@tanstack/react-query";
+import { ROUTE } from "@/app/_constant/route";
 
 const SignUpForm: React.FC = () => {
   const router = useRouter();
@@ -21,7 +22,7 @@ const SignUpForm: React.FC = () => {
         content: "Successfully created account!",
       });
 
-      router.push("/signin");
+      router.push(ROUTE.SIGNIN);
     },
     onError: () => {
       messageApi.open({
@@ -103,9 +104,9 @@ const SignUpForm: React.FC = () => {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          <a className="login-form-forgot" href="">
+          <Link className="login-form-forgot" href={ROUTE.FORGOT_PASS}>
             Forgot password
-          </a>
+          </Link>
         </Form.Item>
 
         <Form.Item>
@@ -118,7 +119,7 @@ const SignUpForm: React.FC = () => {
           >
             Sign Up
           </Button>
-          Or <Link href="/signin">Sign In!</Link>
+          Or <Link href={ROUTE.SIGNIN}>Sign In!</Link>
         </Form.Item>
       </Form>
     </>

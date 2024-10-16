@@ -10,6 +10,7 @@ import { getAllBranches, getSpecificBranch } from "@/app/_services";
 import { useIsMobileScreen, generateDisabledHours } from "@/app/utils";
 import Meta from "antd/es/card/Meta";
 import MyFooter from "@/app/_components/common/footer";
+import { branchesKey } from "@/app/_constant/queryKey";
 
 const { Title, Text } = Typography;
 
@@ -35,7 +36,7 @@ const ClientServices: React.FC<Props> = ({ selectedBranch }) => {
     isLoading: isLoadingDetail,
     isError: isErrorDetail,
   } = useQuery({
-    queryKey: ["branches", "detail", selectedBranch],
+    queryKey: [branchesKey.LIST, branchesKey.DETAIL, selectedBranch],
     queryFn: () => getSpecificBranch(selectedBranch),
   });
 
@@ -44,7 +45,7 @@ const ClientServices: React.FC<Props> = ({ selectedBranch }) => {
     isLoading: isLoadingListBranch,
     isError: isErrorListBranch,
   } = useQuery({
-    queryKey: ["branches"],
+    queryKey: [branchesKey.LIST],
     queryFn: getAllBranches,
   });
 

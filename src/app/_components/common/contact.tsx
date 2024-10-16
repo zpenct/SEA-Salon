@@ -13,63 +13,61 @@ const contentStyle: React.CSSProperties = {
 
 export default function Contact() {
   return (
-    <>
-      <div style={contentStyle} id="contact-section">
-        <Space direction="vertical">
-          <h3>Contact Us</h3>
+    <div style={contentStyle} id="contact-section">
+      <Space direction="vertical">
+        <h3>Contact Us</h3>
 
-          <Space direction="vertical">
-            <p>
-              <span
-                style={{
-                  color: "#6155A6",
-                  background: "#E7E7FF",
-                  borderRadius: "50%",
-                  width: "32px",
-                  height: "32px",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginRight: "8px",
-                }}
-              >
-                <PhoneFilled />
-              </span>
-              Thomas: 08123456789
-            </p>
-            <p>
-              <span
-                style={{
-                  color: "#6155A6",
-                  background: "#E7E7FF",
-                  borderRadius: "50%",
-                  width: "32px",
-                  height: "32px",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginRight: "8px",
-                }}
-              >
-                <PhoneFilled />
-              </span>
-              Sekar: 08164829372
-            </p>
-          </Space>
+        <Space direction="vertical">
+          <p>
+            <span
+              style={{
+                color: "#6155A6",
+                background: "#E7E7FF",
+                borderRadius: "50%",
+                width: "32px",
+                height: "32px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginRight: "8px",
+              }}
+            >
+              <PhoneFilled />
+            </span>
+            Thomas: 08123456789
+          </p>
+          <p>
+            <span
+              style={{
+                color: "#6155A6",
+                background: "#E7E7FF",
+                borderRadius: "50%",
+                width: "32px",
+                height: "32px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginRight: "8px",
+              }}
+            >
+              <PhoneFilled />
+            </span>
+            Sekar: 08164829372
+          </p>
         </Space>
-        <Flex
-          justify="center"
-          align="center"
-          style={{
-            fontWeight: "900",
-            fontSize: "clamp(32px, 3vw, 42px)",
-            maxWidth: "560px",
-            color: "#6155A6",
-          }}
-        >
-          <h3>Lets talk</h3>
-        </Flex>
-      </div>
-    </>
+      </Space>
+      <Flex
+        justify="center"
+        align="center"
+        style={{
+          fontWeight: "900",
+          fontSize: "clamp(32px, 3vw, 42px)",
+          maxWidth: "560px",
+          color: "#6155A6",
+        }}
+      >
+        <h3>Lets talk</h3>
+      </Flex>
+    </div>
   );
 }

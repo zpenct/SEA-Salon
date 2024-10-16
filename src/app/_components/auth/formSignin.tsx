@@ -5,22 +5,21 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { getUserProfile } from "@/app/_services";
+import { ROUTE } from "@/app/_constant/route";
 
 const SignInForm: React.FC = () => {
-  const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
   const [isLoading, setIsLoading] = useState(false);
 
   const onFinish = async (values: any) => {
     setIsLoading(true);
     try {
-      let callbackUrl = "/dashboard";
+      let callbackUrl = ROUTE.DASHBOARD_ADMIN;
       const user = await getUserProfile(values.email);
 
       if (user.data.role === "CUSTOMER") {
-        callbackUrl = "/me";
+        callbackUrl = ROUTE.MY_DASHBOARD;
       }
 
       await signIn("credentials", {
@@ -34,7 +33,6 @@ const SignInForm: React.FC = () => {
         content: "Welcome back!",
       });
     } catch (error) {
-      console.log(error);
       messageApi.open({
         type: "error",
         content: "Password or email is wrong",
@@ -80,9 +78,9 @@ const SignInForm: React.FC = () => {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          <a className="login-form-forgot" href="">
+          <Link className="login-form-forgot" href={ROUTE.FORGOT_PASS}>
             Forgot password
-          </a>
+          </Link>
         </Form.Item>
 
         <Form.Item>
@@ -95,7 +93,7 @@ const SignInForm: React.FC = () => {
           >
             Sign In
           </Button>
-          Or <Link href="/signup">Sign Up Now!</Link>
+          Or <Link href={ROUTE.SIGNUP}>Sign Up Now!</Link>
         </Form.Item>
       </Form>
     </>

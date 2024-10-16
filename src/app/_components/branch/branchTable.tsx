@@ -62,21 +62,17 @@ const columns: TableProps<DataType>["columns"] = [
 
 interface Props {
   loading?: boolean;
-  onChange?: () => void;
-  onSearch?: () => void;
   data?: any;
 }
 
 const BranchesTable: React.FC<Props> = ({ loading, data }) => {
   return (
-    <>
-      <Table
-        columns={columns}
-        dataSource={data}
-        loading={loading}
-        rowKey={(record) => record.id}
-      />
-    </>
+    <Table
+      columns={columns}
+      dataSource={data}
+      loading={loading}
+      rowKey={(record) => record.id}
+    />
   );
 };
 

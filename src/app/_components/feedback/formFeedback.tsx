@@ -2,10 +2,10 @@
 
 import React from "react";
 import { FrownFilled, MehFilled, SmileFilled } from "@ant-design/icons";
-import { Flex, Input, Rate, Typography, message } from "antd";
-import { Button, Form } from "antd";
+import { Flex, Input, Rate, Typography, message, Button, Form } from "antd";
 import { createNewReview } from "@/app/_services";
 import { useMutation, QueryClient } from "@tanstack/react-query";
+import { reviewsKey } from "@/app/_constant/queryKey";
 
 const customIcons: Record<number, React.ReactNode> = {
   1: <FrownFilled style={{ color: "#ff0000" }} />,
@@ -26,8 +26,8 @@ const FormFeedback: React.FC = () => {
     mutationFn: createNewReview,
     onSuccess: () => {
       Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["reviews"] }),
-        queryClient.invalidateQueries({ queryKey: ["total-reviews"] }),
+        queryClient.invalidateQueries({ queryKey: [reviewsKey.LIST] }),
+        queryClient.invalidateQueries({ queryKey: [reviewsKey.TOTAL] }),
       ]);
       messageApi.open({
         type: "success",
