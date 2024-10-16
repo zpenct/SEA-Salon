@@ -6,7 +6,7 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { getUserProfile } from "@/app/_services";
-import { ROUTE } from "@/app/constant/route";
+import { ROUTE } from "@/app/_constant/route";
 
 const SignInForm: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();

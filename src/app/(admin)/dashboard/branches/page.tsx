@@ -8,8 +8,8 @@ import { getAllBranches } from "@/app/_services";
 import { useQuery } from "@tanstack/react-query";
 import { PlusOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { ROUTE } from "@/app/constant/route";
-import { branchesKey } from "@/app/constant/queryKey";
+import { ROUTE } from "@/app/_constant/route";
+import { branchesKey } from "@/app/_constant/queryKey";
 
 const Page: React.FC = () => {
   const {

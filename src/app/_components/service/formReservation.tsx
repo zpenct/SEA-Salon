@@ -20,8 +20,8 @@ import { createNewReservation } from "@/app/_services";
 import { useSession } from "next-auth/react";
 import { useMutation, QueryClient } from "@tanstack/react-query";
 import { generateDisabledHours } from "@/app/utils";
-import { ROUTE } from "@/app/constant/route";
-import { reservetionsKey } from "@/app/constant/queryKey";
+import { ROUTE } from "@/app/_constant/route";
+import { reservetionsKey } from "@/app/_constant/queryKey";
 
 interface Props {
   //TODO: Make Type

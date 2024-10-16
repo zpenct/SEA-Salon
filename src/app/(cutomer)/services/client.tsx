@@ -10,7 +10,7 @@ import { getAllBranches, getSpecificBranch } from "@/app/_services";
 import { useIsMobileScreen, generateDisabledHours } from "@/app/utils";
 import Meta from "antd/es/card/Meta";
 import MyFooter from "@/app/_components/common/footer";
-import { branchesKey } from "@/app/constant/queryKey";
+import { branchesKey } from "@/app/_constant/queryKey";
 
 const { Title, Text } = Typography;
 

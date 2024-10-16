@@ -4,7 +4,7 @@ import React from "react";
 import { Card, List, Space, Button, Row, Col } from "antd";
 import Image from "next/image";
 import useScreenSize from "@/app/_hooks/useScreen";
-import { mobileScreen } from "@/app/constant";
+import { mobileScreen } from "@/app/_constant";
 import {
   CheckOutlined,
   DollarOutlined,

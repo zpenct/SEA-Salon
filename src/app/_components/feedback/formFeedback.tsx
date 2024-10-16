@@ -5,7 +5,7 @@ import { FrownFilled, MehFilled, SmileFilled } from "@ant-design/icons";
 import { Flex, Input, Rate, Typography, message, Button, Form } from "antd";
 import { createNewReview } from "@/app/_services";
 import { useMutation, QueryClient } from "@tanstack/react-query";
-import { reviewsKey } from "@/app/constant/queryKey";
+import { reviewsKey } from "@/app/_constant/queryKey";
 
 const customIcons: Record<number, React.ReactNode> = {
   1: <FrownFilled style={{ color: "#ff0000" }} />,

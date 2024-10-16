@@ -15,7 +15,7 @@ import {
   branchesKey,
   reservetionsKey,
   reviewsKey,
-} from "@/app/constant/queryKey";
+} from "@/app/_constant/queryKey";
 
 const ClientDashboard: React.FC = () => {
   const [totalRewivesQuery, reviewsQuery, customersQuery, totalBranchesQuery] =

@@ -11,7 +11,7 @@ import type { MenuProps } from "antd";
 import { Menu, Tag } from "antd";
 import Link from "next/link";
 import { useIsMobileScreen } from "@/app/utils";
-import { ROUTE } from "@/app/constant/route";
+import { ROUTE } from "@/app/_constant/route";
 
 type MenuItem = Required<MenuProps>["items"][number];
 

@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import MyReservationsTable from "@/app/_components/reservation/myReservationsTable";
 import Link from "next/link";
 import { PlusOutlined } from "@ant-design/icons";
-import { reservetionsKey } from "@/app/constant/queryKey";
+import { reservetionsKey } from "@/app/_constant/queryKey";
 
 interface Props {
   userLoggedIn: any;

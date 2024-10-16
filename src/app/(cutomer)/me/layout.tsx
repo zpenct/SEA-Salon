@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 
 import Link from "next/link";
 import MyFooter from "@/app/_components/common/footer";
-import { ROUTE } from "@/app/constant/route";
+import { ROUTE } from "@/app/_constant/route";
 
 const { Content, Sider } = Layout;
 

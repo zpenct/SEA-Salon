@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signUpApi } from "@/app/_services";
 import { useMutation } from "@tanstack/react-query";
-import { ROUTE } from "@/app/constant/route";
+import { ROUTE } from "@/app/_constant/route";
 
 const SignUpForm: React.FC = () => {
   const router = useRouter();
