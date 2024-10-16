@@ -4,14 +4,12 @@ import FormWrapper from "@/app/_components/common/formWrapper";
 
 const Page: React.FC = () => {
   return (
-    <>
-      <FormWrapper
-        title="Feedback"
-        description="Lorem ipsum, dolor sit amet consectetur adipisicing elit."
-      >
-        <FormFeedback />
-      </FormWrapper>
-    </>
+    <FormWrapper
+      title="Feedback"
+      description="Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+    >
+      <FormFeedback />
+    </FormWrapper>
   );
 };
 

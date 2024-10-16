@@ -4,14 +4,12 @@ import SignUpForm from "../../_components/auth/formSignup";
 
 const Page: React.FC = () => {
   return (
-    <>
-      <AuthWrapper
-        title="Sign Up First!"
-        description="Lorem ipsum, dolor sit amet consectetur adipisicing elit."
-      >
-        <SignUpForm />
-      </AuthWrapper>
-    </>
+    <AuthWrapper
+      title="Sign Up First!"
+      description="Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+    >
+      <SignUpForm />
+    </AuthWrapper>
   );
 };
 

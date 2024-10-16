@@ -55,21 +55,17 @@ const columns: TableProps<TReservation>["columns"] = [
 
 interface Props {
   loading?: boolean;
-  onChange?: () => void;
-  onSearch?: () => void;
   data?: any;
 }
 
 const ReservationsTable: React.FC<Props> = ({ loading, data }) => {
   return (
-    <>
-      <Table
-        columns={columns}
-        dataSource={data}
-        loading={loading}
-        rowKey={(record) => record.id}
-      />
-    </>
+    <Table
+      columns={columns}
+      dataSource={data}
+      loading={loading}
+      rowKey={(record) => record.id}
+    />
   );
 };
 
